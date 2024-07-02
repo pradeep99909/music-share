@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 
 import Login from "./Pages/login";
+import Artist from "./Pages/artist";
 
 const router = createBrowserRouter([
   {
@@ -14,8 +15,8 @@ const router = createBrowserRouter([
     element: <Login />,
   },
   {
-    path: "about",
-    element: <div>About</div>,
+    path: "artist",
+    element: <Artist />,
   },
 ]);
 
