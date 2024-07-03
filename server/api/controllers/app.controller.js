@@ -55,7 +55,7 @@ const userCallback = (req, res) => {
     request.post(authOptions, (error, response, body) => {
       const access_token = body.access_token;
       res.redirect(
-        "http://localhost:3000?" +
+        "http://localhost:3000/artist?" +
           querystring.stringify({ access_token: access_token })
       );
     });
