@@ -1,5 +1,7 @@
 const express = require("express");
+const app = express.Router();
+const controllers = require("../controllers");
 
-const router = express.Router();
+app.get("/top", controllers.artistController.topArtist);
 
-router.get("/artists");
+module.exports = app;
