@@ -5,7 +5,7 @@ const config = require("../../config");
 
 const userLogin = (req, res) => {
   var state = crypto.randomUUID();
-  var scope = "user-read-private user-read-email";
+  var scope = "user-read-private user-read-email user-top-read";
 
   res.redirect(
     config.ENVIRONMENT.VARIABLE.SPOTIFY_URL +
