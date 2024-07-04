@@ -9,4 +9,6 @@ app.get("/callback", controllers.appController.userCallback);
 
 app.get("/share", controllers.appController.userShare);
 
+app.get("/share/:id", controllers.appController.getShare);
+
 module.exports = app;

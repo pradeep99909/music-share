@@ -68,6 +68,20 @@ const userShare = async (req, res) => {
     const access_token = req.headers.authorization;
     const data = await services.appService.share(access_token);
     return res.status(200).send(data);
+    // return res.redirect(
+    //   "https://www.twitter.com/share?url=https://localhost:3000/share/" +
+    //     data.id
+    // );
+  } catch (err) {
+    return res.status(500).send(err);
+  }
+};
+
+const getShare = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const data = await services.appService.getShare(id);
+    return res.status(200).send(data);
   } catch (err) {
     return res.status(500).send(err);
   }
@@ -77,4 +91,5 @@ module.exports = {
   userLogin,
   userCallback,
   userShare,
+  getShare,
 };

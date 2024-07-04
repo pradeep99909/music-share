@@ -1,6 +1,7 @@
 const request = require("request");
 const util = require("util");
 const requestPostPromise = util.promisify(request.post);
+const requestGetPromise = util.promisify(request.get);
 const config = require("../../config");
 const artistService = require("./artist.service");
 
@@ -46,6 +47,36 @@ const share = async (token) => {
   }
 };
 
+const getShare = async (id) => {
+  const baseId = config.ENVIRONMENT.VARIABLE.BASE_ID;
+  const tableNameOrId = config.ENVIRONMENT.VARIABLE.TABLE_NAME;
+  const apiKey = config.ENVIRONMENT.VARIABLE.AIRTABLE_TOKEN;
+
+  const url = `https://api.airtable.com/v0/${baseId}/${tableNameOrId}?filterByFormula={id}='${id}'`;
+  const options = {
+    url: url,
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      "Content-Type": "application/json",
+    },
+  };
+
+  const response = await requestGetPromise(options);
+  response.body = JSON.parse(response.body);
+  const data = [];
+  console.log("🚀 ~ get share ~ response.body:", JSON.stringify(response.body));
+  for (let i = 0; i < response.body.records.length; i++) {
+    data.push({
+      name: response.body.records[i].fields.name,
+      country: response.body.records[i].fields.country,
+    });
+  }
+  return data;
+};
+
 module.exports = {
   share,
+  getShare,
 };
+
+getShare("c8cda8ab-2c21-48af-ab4f-2059acaaaa68");
