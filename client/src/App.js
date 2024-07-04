@@ -1,13 +1,9 @@
 import "./App.css";
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Route,
-  Link,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Login from "./Pages/login";
 import Artist from "./Pages/artist";
+import Share from "./Pages/share";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +13,10 @@ const router = createBrowserRouter([
   {
     path: "artist",
     element: <Artist />,
+  },
+  {
+    path: "share/:id",
+    element: <Share />,
   },
 ]);
 
