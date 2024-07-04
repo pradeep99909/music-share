@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Globe from "react-globe.gl";
 import COUNTRY from "../config/country";
+import VARIABLE from "../config/env";
 
 const Artist = () => {
   const [accessToken, setAccessToken] = useState(null);
@@ -25,7 +26,7 @@ const Artist = () => {
 
   useEffect(() => {
     const fetchTopArtists = async () => {
-      const fetchData = await fetch("http://localhost:8080/api/v1/artist/top", {
+      const fetchData = await fetch(VARIABLE.SERVER + "/api/v1/artist/top", {
         method: "GET",
         headers: {
           authorization: accessToken,
@@ -61,30 +62,39 @@ const Artist = () => {
         labelDotRadius={() => 0.5}
         labelColor={() => "rgba(255, 165, 0, 0.75)"}
       />
-        <button className="p-2 flex items-center bg-white text-black w-200 rounded-full font-semibold" onClick={async (event)=>{
+      <button
+        className="p-2 flex items-center bg-white text-black w-200 rounded-full font-semibold"
+        onClick={async (event) => {
           event.preventDefault();
-          const fetchData = await fetch("http://localhost:8080/api/v1/user/share", {
-            method: "GET",
-            headers: {
-              authorization: accessToken,
-            },
-          });
-          //const records = await fetchData.body;
-          const {id}=await fetchData.json()
-          const url = "https://twitter.com/intent/tweet?url=http://localhost:3000/share/" + id + "&text=" + "My Spotify Top Artists Country"
-          window.open(url)
-          
-        }}>
-          <img
-            width={20}
-            height={20}
-            src={
-              "https://w7.pngwing.com/pngs/748/680/png-transparent-twitter-x-logo.png"
+          const fetchData = await fetch(
+            VARIABLE.SERVER + "/api/v1/user/share",
+            {
+              method: "GET",
+              headers: {
+                authorization: accessToken,
+              },
             }
-            alt="spotify logo"
-          />
-          Share on Twitter
-        </button>
+          );
+          //const records = await fetchData.body;
+          const { id } = await fetchData.json();
+          const url =
+            "https://twitter.com/intent/tweet?url=http://localhost:3000/share/" +
+            id +
+            "&text=" +
+            "My Spotify Top Artists Country";
+          window.open(url);
+        }}
+      >
+        <img
+          width={20}
+          height={20}
+          src={
+            "https://w7.pngwing.com/pngs/748/680/png-transparent-twitter-x-logo.png"
+          }
+          alt="spotify logo"
+        />
+        Share on Twitter
+      </button>
     </div>
   );
 };

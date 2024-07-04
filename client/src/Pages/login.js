@@ -1,3 +1,5 @@
+import VARIABLE from "../config/env";
+
 function Main() {
   return (
     <div className="text-white flex flex-col items-center justify-center">
@@ -9,7 +11,7 @@ function Main() {
         from
       </p>
       <br />
-      <form action="http://localhost:8080/api/v1/user/login">
+      <form action={VARIABLE.SERVER + "/api/v1/user/login"}>
         <button className="p-2 flex items-center bg-white text-black w-200 rounded-full font-semibold">
           <img
             width={30}
