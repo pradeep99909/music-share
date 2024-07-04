@@ -1,4 +1,6 @@
 const request = require("request");
+const util = require("util");
+const requestPostPromise = util.promisify(request.post);
 const config = require("../../config");
 const artistService = require("./artist.service");
 
@@ -35,19 +37,10 @@ const share = async (token) => {
       body: JSON.stringify(data),
     };
 
-    request.post(options, (error, response, body) => {
-      if (error) {
-        console.error("Error making request:", error);
-        return;
-      }
-
-      if (response.statusCode !== 200) {
-        console.error("Failed to fetch data:", response.statusCode, body);
-        return;
-      }
-
-      console.log("Data received:", body);
-    });
+    const response = await requestPostPromise(options);
+    response.body = JSON.parse(response.body);
+    console.log("🚀 ~ share ~ response.body:", response.body);
+    return { id };
   } catch (err) {
     console.error(err);
   }
