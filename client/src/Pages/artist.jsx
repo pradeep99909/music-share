@@ -61,8 +61,20 @@ const Artist = () => {
         labelDotRadius={() => 0.5}
         labelColor={() => "rgba(255, 165, 0, 0.75)"}
       />
-      <form action="http://localhost:8080/api/v1/user/share">
-        <button className="p-2 flex items-center bg-white text-black w-200 rounded-full font-semibold">
+        <button className="p-2 flex items-center bg-white text-black w-200 rounded-full font-semibold" onClick={async (event)=>{
+          event.preventDefault();
+          const fetchData = await fetch("http://localhost:8080/api/v1/user/share", {
+            method: "GET",
+            headers: {
+              authorization: accessToken,
+            },
+          });
+          //const records = await fetchData.body;
+          const {id}=await fetchData.json()
+          const url = "https://twitter.com/intent/tweet?url=http://localhost:3000/share/" + id + "&text=" + "My Spotify Top Artists Country"
+          window.open(url)
+          
+        }}>
           <img
             width={20}
             height={20}
@@ -73,7 +85,6 @@ const Artist = () => {
           />
           Share on Twitter
         </button>
-      </form>
     </div>
   );
 };
