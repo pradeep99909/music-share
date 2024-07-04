@@ -1,6 +1,7 @@
 /server/.env
 
 /server/node_modules
+/server/package-lock.json
 
 
 # dependencies
@@ -10,6 +11,7 @@
 
 # testing
 /client/coverage
+/client/package-lock.json
 
 # production
 /client/build
