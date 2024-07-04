@@ -78,7 +78,9 @@ const Artist = () => {
           //const records = await fetchData.body;
           const { id } = await fetchData.json();
           const url =
-            "https://twitter.com/intent/tweet?url=http://localhost:3000/share/" +
+            "https://twitter.com/intent/tweet?url=" +
+            VARIABLE.CLIENT +
+            "/share/" +
             id +
             "&text=" +
             "My Spotify Top Artists Country";
