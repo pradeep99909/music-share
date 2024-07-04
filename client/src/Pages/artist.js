@@ -1,6 +1,7 @@
 // src/App.js
 import React, { useState, useEffect } from "react";
 import Globe from "react-globe.gl";
+import COUNTRY from "../config/country";
 
 const Artist = () => {
   const [accessToken, setAccessToken] = useState(null);
@@ -24,67 +25,49 @@ const Artist = () => {
 
   useEffect(() => {
     const fetchTopArtists = async () => {
-      // const fetchData = await fetch("http://localhost:8080/api/v1/artist/top", {
-      //   method: "GET",
-      //   headers: {
-      //     authorization: accessToken,
-      //   },
-      // });
-      //console.log("🚀 ~ fetchTopArtists ~ fetchData:", fetchData);
-      //const data = await fetchData.json();
-      const data = [
-        {
-          name: "Kumar Sanu",
-          country: "IN",
+      const fetchData = await fetch("http://localhost:8080/api/v1/artist/top", {
+        method: "GET",
+        headers: {
+          authorization: accessToken,
         },
-        {
-          name: "Pritam",
-          country: "IN",
-        },
-        {
-          name: "Arijit Singh",
-          country: "IN",
-        },
-        {
-          name: "Katy Perry",
-          country: "US",
-        },
-      ];
-      const dummyData = [
-        { lat: 37.7749, lng: -122.4194, label: "San Francisco" },
-        { lat: 40.7128, lng: -74.006, label: "New York" },
-        { lat: 51.5074, lng: -0.1278, label: "London" },
-        { lat: 35.6895, lng: 139.6917, label: "Tokyo" },
-        { lat: -33.8688, lng: 151.2093, label: "Sydney" },
-      ];
+      });
+      console.log("🚀 ~ fetchTopArtists ~ fetchData:", fetchData);
+      const data = await fetchData.json();
+      console.log("🚀 ~ fetchTopArtists ~ data 0:", data);
+      for (let i = 0; i < data.length; i++) {
+        data[i]["lat"] = COUNTRY[data[i]["country"]][0];
+        data[i]["lng"] = COUNTRY[data[i]["country"]][1];
+      }
       console.log("🚀 ~ fetchTopArtists ~ data:", data);
-      setArtists(dummyData);
+      setArtists(data);
     };
 
     fetchTopArtists();
   }, [accessToken]);
 
   return (
-    <div className="h-full w-full bg-black flex flex-col items-center justify-center">
+    <div className="h-full w-full bg-black flex flex-col items-center justify-center top-0 bottom-0 absolute">
       <h1 className="text-white font-bold text-2xl">Your Top Artists</h1>
       <Globe
+        height={500}
+        width={500}
         globeImageUrl="//unpkg.com/three-globe/example/img/earth-night.jpg"
         //backgroundImageUrl="//unpkg.com/three-globe/example/img/night-sky.png"
         labelsData={artists}
         labelLat={(d) => d.lat}
         labelLng={(d) => d.lng}
-        labelText={(d) => d.label}
+        labelText={(d) => d.name}
         labelSize={() => 1.5}
         labelDotRadius={() => 0.5}
         labelColor={() => "rgba(255, 165, 0, 0.75)"}
       />
-      <form action="http://localhost:8080/api/v1/user/login">
+      <form action="http://localhost:8080/api/v1/user/share">
         <button className="p-2 flex items-center bg-white text-black w-200 rounded-full font-semibold">
           <img
-            width={30}
-            height={30}
+            width={20}
+            height={20}
             src={
-              "https://i0.wp.com/brandingforum.org/wp-content/uploads/2023/10/Spotify-logo-500x281-1.png?resize=500%2C281&ssl=1"
+              "https://w7.pngwing.com/pngs/748/680/png-transparent-twitter-x-logo.png"
             }
             alt="spotify logo"
           />
