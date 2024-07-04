@@ -10,6 +10,7 @@ const VARIABLE = {
   AIRTABLE_TOKEN: process.env.AIRTABLE_TOKEN,
   BASE_ID: process.env.BASE_ID,
   TABLE_NAME: process.env.TABLE_NAME,
+  CLIENT_URL: process.env.CLIENT_URL,
 };
 
 module.exports = {
