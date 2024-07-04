@@ -1,18 +1,21 @@
 // src/App.js
 import React, { useState, useEffect } from "react";
-import { useParams } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 import Globe from "react-globe.gl";
 import COUNTRY from "../config/country";
 
 const Share = () => {
   const { id } = useParams();
-  console.log("🚀 ~ Share ~ id:", id)
+  console.log("🚀 ~ Share ~ id:", id);
   const [artists, setArtists] = useState([]);
   useEffect(() => {
     const fetchTopArtists = async () => {
-      const fetchData = await fetch("http://localhost:8080/api/v1/user/share/" + id, {
-        method: "GET"
-      });
+      const fetchData = await fetch(
+        "http://localhost:8080/api/v1/user/share/" + id,
+        {
+          method: "GET",
+        }
+      );
       console.log("🚀 ~ fetchTopArtists ~ fetchData:", fetchData);
       const data = await fetchData.json();
       console.log("🚀 ~ fetchTopArtists ~ data 0:", data);
