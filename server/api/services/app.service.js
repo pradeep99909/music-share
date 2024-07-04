@@ -1,6 +1,4 @@
 const request = require("request");
-const util = require("util");
-const requestGetPromise = util.promisify(request.get);
 const config = require("../../config");
 const artistService = require("./artist.service");
 
@@ -19,7 +17,6 @@ const share = async (token) => {
       records: [],
     };
     for (let i = 0; i < artists.length; i++) {
-      artists[i]["country"] = await getArtistCountry(artists[i].name);
       data.records.push({
         fields: {
           id,
@@ -56,30 +53,6 @@ const share = async (token) => {
   }
 };
 
-const getArtistCountry = async (artistName) => {
-  try {
-    console.log("🚀 ~ getArtistCountry ~ artistName:", artistName);
-    const options = {
-      url:
-        "https://musicbrainz.org/ws/2/artist/?query=artist:" +
-        artistName +
-        "&fmt=json",
-      headers: {
-        "User-Agent": "Music Share",
-      },
-    };
-
-    const data = await requestGetPromise(options);
-    const body = JSON.parse(data.body);
-    console.log("🚀 ~ getArtistCountry ~ body:", body);
-    return body.artists[0].country;
-  } catch (err) {
-    console.error(err);
-    throw err;
-  }
-};
-
 module.exports = {
   share,
-  getArtistCountry,
 };

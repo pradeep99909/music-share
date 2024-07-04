@@ -3,7 +3,6 @@ const request = require("request");
 const util = require("util");
 const requestGetPromise = util.promisify(request.get);
 const config = require("../../config");
-const { getArtistCountry } = require("./app.service");
 const topArtist = async (access_token) => {
   try {
     console.log("🚀 ~ topArtist ~ access_token:", access_token);
@@ -37,3 +36,26 @@ const topArtist = async (access_token) => {
 module.exports = {
   topArtist,
 };
+
+async function getArtistCountry(artistName) {
+  try {
+    console.log("🚀 ~ getArtistCountry ~ artistName:", artistName);
+    const options = {
+      url:
+        "https://musicbrainz.org/ws/2/artist/?query=artist:" +
+        artistName +
+        "&fmt=json",
+      headers: {
+        "User-Agent": "Music Share",
+      },
+    };
+
+    const data = await requestGetPromise(options);
+    const body = JSON.parse(data.body);
+    console.log("🚀 ~ getArtistCountry ~ body:", body);
+    return body.artists[0].country;
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
+}

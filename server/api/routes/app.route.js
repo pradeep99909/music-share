@@ -7,4 +7,6 @@ app.get("/login", controllers.appController.userLogin);
 
 app.get("/callback", controllers.appController.userCallback);
 
+app.get("/share", controllers.appController.userShare);
+
 module.exports = app;
