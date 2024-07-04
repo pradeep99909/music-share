@@ -2,6 +2,7 @@ const querystring = require("querystring");
 const { Buffer } = require("buffer");
 const request = require("request");
 const config = require("../../config");
+const services = require("../services");
 
 const userLogin = (req, res) => {
   var state = crypto.randomUUID();
@@ -62,7 +63,18 @@ const userCallback = (req, res) => {
   }
 };
 
+const userShare = async (req, res) => {
+  try {
+    const access_token = req.headers.authorization;
+    const data = await services.appService.share(access_token);
+    return res.status(200).send(data);
+  } catch (err) {
+    return res.status(500).send(err);
+  }
+};
+
 module.exports = {
   userLogin,
   userCallback,
+  userShare,
 };

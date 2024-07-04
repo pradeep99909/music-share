@@ -1,21 +1,13 @@
-const _ = require("lodash");
-const request = require("request");
-const config = require("../../config");
-const topArtist = (req, res) => {
-  console.log("🚀 ~ topArtist ~ req.headers:", req.headers);
-  const access_token = req.headers.authorization;
-  const options = {
-    url: config.ENVIRONMENT.VARIABLE.SPOTIFY_URL + "/v1/me/top/artists",
-    headers: { Authorization: "Bearer " + access_token },
-    json: true,
-  };
+const services = require("../services");
 
-  request.get(options, (error, response, body) => {
-    console.log("🚀 ~ request.get ~ body:", body);
-    if (error || body.error) return res.status(500).send(error);
-    body = body.items.map((artist) => _.pick(artist, ["name"]));
-    return res.json(body);
-  });
+const topArtist = async (req, res) => {
+  try {
+    const access_token = req.headers.authorization;
+    const data = await services.artistService.topArtist(access_token);
+    return res.status(200).send(data);
+  } catch (err) {
+    return res.status(500).send(err);
+  }
 };
 
 module.exports = {
