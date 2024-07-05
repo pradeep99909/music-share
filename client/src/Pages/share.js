@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Globe from "react-globe.gl";
 import COUNTRY from "../config/country";
+import VARIABLE from "../config/env";
 
 const Share = () => {
   const { id } = useParams();
@@ -11,7 +12,7 @@ const Share = () => {
   useEffect(() => {
     const fetchTopArtists = async () => {
       const fetchData = await fetch(
-        "http://localhost:8080/api/v1/user/share/" + id,
+        VARIABLE.SERVER + "/api/v1/user/share/" + id,
         {
           method: "GET",
         }
