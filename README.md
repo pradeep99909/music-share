@@ -4,13 +4,11 @@
 
 ## Overview
 
-Music Share is a web application that enables users to upload, share, and listen to music. It features a music player and easy sharing capabilities.
+Music Share is a web application to view where their Spotify top artists from.
 
 ## Features
 
-- **Upload Music**: Users can upload music files.
-- **Music Player**: Listen to tracks directly on the platform.
-- **Share Music**: Share tracks with others.
+- **Your Favorite Artists Country**: Users top artist country on Globe
 
 ## Installation
 
