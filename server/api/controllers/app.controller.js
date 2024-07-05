@@ -6,8 +6,7 @@ const services = require("../services");
 
 const userLogin = (req, res) => {
   var state = crypto.randomUUID();
-  var scope =
-    "user-read-private user-read-email user-top-read user-library-read";
+  var scope = "user-top-read";
 
   res.redirect(
     config.ENVIRONMENT.VARIABLE.SPOTIFY_URL +
